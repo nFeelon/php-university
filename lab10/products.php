@@ -1,14 +1,12 @@
 <?php
 include 'db.php';
 
-// Обработка формы добавления товара
 if (isset($_POST['add_product'])) {
     $product_name = $_POST['product_name'];
     $price = $_POST['price'];
     $category_id = $_POST['category_id'];
     $supplier_id = $_POST['supplier_id'];
 
-    // Проверка, активен ли поставщик
     $stmt = $pdo->prepare("SELECT is_active FROM suppliers WHERE id = :supplier_id");
     $stmt->execute(['supplier_id' => $supplier_id]);
     $supplier = $stmt->fetch();
@@ -23,21 +21,20 @@ if (isset($_POST['add_product'])) {
     }
 }
 
-// Получение всех товаров с названиями категорий и поставщиков
 $query = "
     SELECT products.*, categories.name AS category_name, suppliers.name AS supplier_name
     FROM products
     JOIN categories ON products.category_id = categories.id
     JOIN suppliers ON products.supplier_id = suppliers.id
 ";
+
 $products = $pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
 
-// Получение всех категорий для выпадающего списка
 $categories = $pdo->query("SELECT * FROM categories")->fetchAll(PDO::FETCH_ASSOC);
 
-// Получение всех поставщиков для выпадающего списка
 $suppliers = $pdo->query("SELECT * FROM suppliers WHERE is_active = 1")->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <html>
 
 <head>
@@ -94,7 +91,6 @@ $suppliers = $pdo->query("SELECT * FROM suppliers WHERE is_active = 1")->fetchAl
         <a href="../index.php">Назад</a>
     </div>
     <div class="code">
-        <!-- Вывод товаров в виде карточек -->
         <div>
             <?php foreach ($products as $product): ?>
                 <div class="product-card">
@@ -106,13 +102,11 @@ $suppliers = $pdo->query("SELECT * FROM suppliers WHERE is_active = 1")->fetchAl
             <?php endforeach; ?>
         </div>
 
-        <!-- Форма добавления товара -->
         <h2>Добавить товар</h2>
         <form method="POST">
             <input type="text" name="product_name" required placeholder="Название товара">
-            <input type="number" step="0.01" name="price" required placeholder="Цена">
+            <input type="number" name="price" required placeholder="Цена">
 
-            <!-- Выпадающий список категорий -->
             <select name="category_id" required>
                 <option value="">Выберите категорию</option>
                 <?php foreach ($categories as $category): ?>
@@ -120,7 +114,6 @@ $suppliers = $pdo->query("SELECT * FROM suppliers WHERE is_active = 1")->fetchAl
                 <?php endforeach; ?>
             </select>
 
-            <!-- Выпадающий список поставщиков (только активные) -->
             <select name="supplier_id" required>
                 <option value="">Выберите поставщика</option>
                 <?php foreach ($suppliers as $supplier): ?>

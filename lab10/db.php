@@ -1,5 +1,4 @@
 <?php
-// db.php
 $host = 'MySQL-8.2';
 $dbname = 'mini_shop';
 $user = 'root';

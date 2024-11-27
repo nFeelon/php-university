@@ -1,7 +1,6 @@
 <?php
 include 'db.php';
 
-// Обработка формы добавления поставщика
 if (isset($_POST['add_supplier'])) {
     $supplier_name = $_POST['supplier_name'];
     $contact_info = $_POST['contact_info'];
@@ -11,7 +10,6 @@ if (isset($_POST['add_supplier'])) {
     exit();
 }
 
-// Обработка формы блокировки поставщика
 if (isset($_POST['block_supplier'])) {
     $supplier_id = $_POST['supplier_id'];
     $stmt = $pdo->prepare("UPDATE suppliers SET is_active = 0 WHERE id = :supplier_id");
@@ -20,7 +18,14 @@ if (isset($_POST['block_supplier'])) {
     exit();
 }
 
-// Получение всех поставщиков
+if (isset($_POST['unblock_supplier'])) {
+    $supplier_id = $_POST['supplier_id'];
+    $stmt = $pdo->prepare("UPDATE suppliers SET is_active = 1 WHERE id = :supplier_id");
+    $stmt->execute(['supplier_id' => $supplier_id]);
+    header("Location: suppliers.php");
+    exit();
+}
+
 $suppliers = $pdo->query("SELECT * FROM suppliers")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -69,7 +74,6 @@ $suppliers = $pdo->query("SELECT * FROM suppliers")->fetchAll(PDO::FETCH_ASSOC);
         <a href="../index.php">Назад</a>
     </div>
     <div class="code">
-        <!-- Вывод поставщиков -->
         <table border="1">
             <tr>
                 <th>Название</th>
@@ -85,7 +89,6 @@ $suppliers = $pdo->query("SELECT * FROM suppliers")->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </table>
 
-        <!-- Форма добавления поставщика -->
         <h2>Добавить поставщика</h2>
         <form method="POST">
             <input type="text" name="supplier_name" required placeholder="Название поставщика">
@@ -93,7 +96,6 @@ $suppliers = $pdo->query("SELECT * FROM suppliers")->fetchAll(PDO::FETCH_ASSOC);
             <button type="submit" name="add_supplier">Добавить</button>
         </form>
 
-        <!-- Форма блокировки поставщика -->
         <h2>Блокировать поставщика</h2>
         <form method="POST">
             <select name="supplier_id" required>
@@ -104,6 +106,18 @@ $suppliers = $pdo->query("SELECT * FROM suppliers")->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach; ?>
             </select>
             <button type="submit" name="block_supplier">Блокировать</button>
+        </form>
+
+        <h2>Разблокировать поставщика</h2>
+        <form method="POST">
+            <select name="supplier_id" required>
+                <?php foreach ($suppliers as $supplier): ?>
+                    <?php if (!$supplier['is_active']): ?>
+                        <option value="<?= $supplier['id'] ?>"><?= htmlspecialchars($supplier['name']) ?></option>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </select>
+            <button type="submit" name="unblock_supplier">Разблокировать</button>
         </form>
     </div>
     <h4>Все права не защищены &copy</h4>

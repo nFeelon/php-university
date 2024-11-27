@@ -1,0 +1,218 @@
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #ECE9D8;
+    --window-bg: #FFFFFF;
+    --title-bar: #0055EA;
+    --border-color: #245DDC;
+    --text-color: #000000;
+    --link-color: #0000FF;
+    --button-gradient-start: #EEF4FE;
+    --button-gradient-end: #C5D9F9;
+    --button-border: #7DA2CE;
+}
+
+body {
+    font-family: 'Tahoma', sans-serif;
+    line-height: 1.6;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Стили шапки */
+header {
+    background: linear-gradient(to right, #0054E3, #2787E9);
+    color: white;
+    padding: 5px 0;
+    border-bottom: 2px solid #003399;
+}
+
+.user-info {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logout-btn {
+    background: linear-gradient(to bottom, var(--button-gradient-start), var(--button-gradient-end));
+    color: var(--text-color);
+    padding: 3px 10px;
+    border: 1px solid var(--button-border);
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 11px;
+}
+
+.logout-btn:hover {
+    background: linear-gradient(to bottom, #F9FCFF, #D7E9FF);
+}
+
+.logout-btn:active {
+    background: linear-gradient(to bottom, #D7E9FF, #F9FCFF);
+}
+
+/* Стили форм */
+.register-form,
+.login-form {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 3px;
+    background: var(--title-bar);
+    border: 1px solid #003399;
+    border-radius: 3px;
+}
+
+.register-form > div,
+.login-form > div {
+    background: var(--window-bg);
+    padding: 20px;
+    border: 1px solid #7DA2CE;
+}
+
+.login-form p {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 11px;
+}
+
+input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #7DA2CE;
+    border-radius: 2px;
+    font-size: 11px;
+    background: white;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--border-color);
+}
+
+button {
+    background: linear-gradient(to bottom, var(--button-gradient-start), var(--button-gradient-end));
+    color: var(--text-color);
+    padding: 5px 12px;
+    border: 1px solid var(--button-border);
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 11px;
+    font-family: 'Tahoma', sans-serif;
+}
+
+button:hover {
+    background: linear-gradient(to bottom, #F9FCFF, #D7E9FF);
+}
+
+button:active {
+    background: linear-gradient(to bottom, #D7E9FF, #F9FCFF);
+}
+
+/* Стили основного контента */
+.main-content {
+    padding: 20px 0;
+}
+
+.main-content h1 {
+    color: var(--text-color);
+    font-size: 24px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+/* Стили для сетки лабораторных работ */
+.lab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    padding: 10px;
+}
+
+.lab-link {
+    background: linear-gradient(to bottom, var(--button-gradient-start), var(--button-gradient-end));
+    border: 1px solid var(--button-border);
+    border-radius: 3px;
+    padding: 10px;
+    text-decoration: none;
+    color: var(--text-color);
+    text-align: center;
+}
+
+.lab-link:hover {
+    background: linear-gradient(to bottom, #F9FCFF, #D7E9FF);
+}
+
+.lab-link:active {
+    background: linear-gradient(to bottom, #D7E9FF, #F9FCFF);
+}
+
+.lab-number {
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.lab-title {
+    font-size: 11px;
+    color: var(--text-color);
+}
+
+.lab-link.current {
+    border: 2px solid var(--border-color);
+    background: linear-gradient(to bottom, #D7E9FF, #F9FCFF);
+}
+
+/* Стили подвала */
+footer {
+    background: linear-gradient(to right, #0054E3, #2787E9);
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #003399;
+    font-size: 11px;
+}
+
+/* Стили сообщений */
+.success-message,
+.error-message {
+    margin: 10px 0;
+    padding: 8px;
+    border: 1px solid;
+    border-radius: 3px;
+    font-size: 11px;
+}
+
+.success-message {
+    background-color: #EBFBEE;
+    border-color: #4F8A10;
+    color: #4F8A10;
+}
+
+.error-message {
+    background-color: #FFEBEB;
+    border-color: #D8000C;
+    color: #D8000C;
+}
